@@ -1,3 +1,3 @@
 import {createContext} from 'react'
 
-export const FlickrContext = createContext(null)
+export const FlickrContext = createContext({})
