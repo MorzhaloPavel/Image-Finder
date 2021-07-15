@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Bookmarks from "./pages/Bookmarks";
-import { FlickrState } from "./context/firebase/FlickrState";
+import { FlickrState } from "./context/flickr/FlickrState";
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Header/>
         <Navbar/>
-        <div className='container' >
+        <div className='containers' >
           <Switch>
             <Route path={'/'} exact component={Home} />
             <Route path={'/bookmarks'} component={Bookmarks} />

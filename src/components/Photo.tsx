@@ -1,12 +1,13 @@
 import React from 'react'
+import { IPhoto } from '../types'
 
-export default function Photo({pic, onClick, title}: any) {
+export default function Photo({picture, title, onClick }: IPhoto) {
   
   return (
     <li className='photo' >
-      <img src={pic.src} alt=''></img>
-      <button onClick={() => onClick(pic)} className='btn btn-primary'>{title}</button>
-      <p>{pic.title}</p>
+      <img src={picture.src} alt=''></img>
+      <p>{picture.title}</p>
+      <button onClick={() => onClick(picture)} className={title === 'Bookmarks it!' ? 'btn btn-primary' : 'btn btn-danger'}>{title}</button>
     </li>
   )
 }

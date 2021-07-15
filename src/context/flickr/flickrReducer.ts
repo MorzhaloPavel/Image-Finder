@@ -9,7 +9,7 @@ export const flickrReducer = (state: any , action: any) => {
       return {...state, tags: action.payload}
       
     case GET_PHOTOS:
-      return  {...state, photos: action.payload, loading: false}
+      return  {...state, photos: action.payload, pages: action.pages, loading: false}
 
     case ADD_PHOTO:
       return {...state, myPhoto: [...state.myPhoto, action.payload]}
@@ -27,25 +27,3 @@ export const flickrReducer = (state: any , action: any) => {
       return state
   }
 }
-
-
-
-
-// const handlers = {
-//   [SHOW_LOADER]: state => ({...state, loading: true}),
-//   [ADD_NOTE]: (state, {payload}) => ({
-//     ...state,
-//     notes: [...state.notes, payload]
-//   }),
-//   [FETCH_NOTES]: (state, {payload}) => ({...state, notes: payload, loading: false}),
-//   [REMOVE_NOTE]: (state, {payload}) => ({
-//     ...state,
-//     notes: state.notes.filter(note => note.id !== payload)
-//   }),
-//   DEFAULT: state => state
-// }
-
-// export const firebaseReducer = (state, action) => {
-//   const handle = handlers[action.type] || handlers.DEFAULT
-//   return handle(state, action)
-// }

@@ -1,18 +1,32 @@
-// import React, { useContext, useState } from 'react'
-// import { AlertContext } from '../context/alert/alertContext'
+import React, { useContext, useState } from 'react'
+import { FlickrContext } from '../context/flickr/flickrContext'
 
+export default function Form() {
 
-export default function Form({onChange, value, onSubmit}: any) {
+  const {changeTags} = useContext(FlickrContext)
+
+  const [tags, setTags] = useState('')
+
+  const getFlickr = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if(!tags.trim()) {
+      console.log('Введите имя');
+      return
+    }
+    changeTags(tags)
+    setTags('')
+  }
 
   return (
-    <form onSubmit={onSubmit} >
-        <input 
-          type='text'
-          className='from-control'
-          placeholder='Ввыедите текст'
-          value={value}
-          onChange={e => onChange(e.target.value)}
-        />
+    <form onSubmit={(e) => getFlickr(e)} className='form' >
+      <img src="https://img.icons8.com/metro/26/000000/search.png" alt='' />
+      <input 
+        type='text'
+        className='from-control input'
+        placeholder='Заполните меня...'
+        value={tags}
+        onChange={e => setTags(e.target.value)}
+      />
     </form>
   )
 }
