@@ -12,6 +12,12 @@ export default function Home() {
   return (
     <>
       <Form/>
+        <button
+          className="flex-child"
+          onClick={() => window.localStorage.clear()}
+        >
+          Clear localStorage
+        </button>
       { 
         loading ?
           <Loader/> : 
@@ -36,9 +42,4 @@ export default function Home() {
 
 
 
-  //  {/* <button
-  //         className="flex-child"
-  //         onClick={() => window.localStorage.clear()}
-  //       >
-  //         Clear localStorage
-  //       </button> */}
+

@@ -1,6 +1,7 @@
+import { IPicture, IState } from '../../types'
 import { ADD_PHOTO, GET_PHOTOS, REMOVE_PHOTO, SHOW_LOADER, BACK_PAGE, NEXT_PAGE, CHANGE_TAGS} from '../constants'
 
-export const flickrReducer = (state: any , action: any) => {
+export const flickrReducer = (state: IState , action: any) => {
   switch (action.type) {
     case SHOW_LOADER:
       return {...state, loading: true}
@@ -15,7 +16,7 @@ export const flickrReducer = (state: any , action: any) => {
       return {...state, myPhoto: [...state.myPhoto, action.payload]}
 
     case REMOVE_PHOTO:
-      return {...state, myPhoto: state.myPhoto.filter((photo: any) => photo.id !== action.payload.id)}     
+      return {...state, myPhoto: state.myPhoto.filter((photo: IPicture) => photo.id !== action.payload.id)}     
 
     case NEXT_PAGE:
       return {...state, page: state.page + 1}

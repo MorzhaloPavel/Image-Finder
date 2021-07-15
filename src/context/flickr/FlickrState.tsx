@@ -3,20 +3,41 @@ import axios from 'axios'
 import {FlickrContext} from './flickrContext'
 import {flickrReducer} from './flickrReducer'
 import {ADD_PHOTO, GET_PHOTOS, REMOVE_PHOTO, SHOW_LOADER, BACK_PAGE, NEXT_PAGE, CHANGE_TAGS} from '../constants'
-import {IState, IPic} from '../../types'
+import {IState, IPic, IPicture} from '../../types'
 
 
 export const FlickrState = ({children}: any) => {
+
+  const localStorage = () => {
+    const json = JSON.parse(`${window.localStorage.getItem("myPhoto")}`)
+    const arr = []
+    for(let i = 0; ; i++) {
+      const item = json[i]
+      if(!item) break
+      arr.push(item)
+    }
+    if(json['pic'] !== undefined) {
+      arr.push(json['pic'])
+    }
+    return arr
+  }
+
+  const changeStoreg = (pic: IPicture) => {
+    const aaa = state.myPhoto.filter((photo: IPicture) => photo.id !== pic.id)
+    window.localStorage.clear()
+    window.localStorage.setItem("myPhoto", JSON.stringify({...aaa}))
+  }
+
   const initialState: IState = {
     photos: [],
-    // myPhoto: window.localStorage.getItem("myPhoto") == null
-    //   ? [] : window.localStorage.getItem("myPhoto"),
-    myPhoto: [],
+    myPhoto: window.localStorage.getItem("myPhoto") == null
+      ? [] : localStorage(),
     tags: '', 
     page: 1,
     pages: 1,
     loading: false
   }
+  
   const [state, dispatch] = useReducer(flickrReducer, initialState)
 
   const showLoader = (): void => dispatch({type: SHOW_LOADER})
@@ -26,18 +47,17 @@ export const FlickrState = ({children}: any) => {
     dispatch({type: CHANGE_TAGS, payload})
   }
 
-  const savePhoto = (pic: object): void => {
+  const savePhoto = (pic: IPicture): void => {
     if(state.myPhoto.includes(pic)) {
       return
     }
-    // window.localStorage.setItem("myPhoto", JSON.stringify({...state.myPhoto, pic}))
-  // console.log('2', JSON.stringify({...state.myPhoto, pic}));
-
+    window.localStorage.setItem("myPhoto", JSON.stringify({...state.myPhoto, pic}))
     const payload = pic
     dispatch({type: ADD_PHOTO, payload})
   }
 
-  const removePhoto = (pic: object): void => {
+  const removePhoto = (pic: IPicture): void => {
+    changeStoreg(pic)
     const payload = pic
     dispatch({type: REMOVE_PHOTO, payload})
   }
@@ -73,9 +93,8 @@ export const FlickrState = ({children}: any) => {
       })
   }, [state.page, state.tags])
 
-  // console.log('1', state.myPhoto);
-  // console.log('2', JSON.stringify(state.myPhoto));
-  // console.log('3', JSON.parse(JSON.stringify(state.myPhoto)));
+  console.log(state.myPhoto);
+
 
   return (
     <FlickrContext.Provider value={{
@@ -94,17 +113,3 @@ export const FlickrState = ({children}: any) => {
     </FlickrContext.Provider>
   )
 }
-
-
-// export const context = {
-//     savePhoto: this.savePhoto,
-//     nextPage,
-//     backPage,
-//     changeTags,
-//     removePhoto,
-//     loading: state.loading,
-//     photos: state.photos,
-//     myPhoto: state.myPhoto,
-//     page: state.page,
-//     pages: state.pages,
-//   }
