@@ -138,6 +138,22 @@ body {
     word-break: break-all;
     overflow: hidden;
   }
+
+  input {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    outline:none;
+    border: none;
+    width: 200px;
+  }
+
+  span {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 200px;
+  }
 }
 
 .pagination {

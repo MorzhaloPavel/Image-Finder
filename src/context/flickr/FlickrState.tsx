@@ -93,9 +93,6 @@ export const FlickrState = ({children}: any) => {
       })
   }, [state.page, state.tags])
 
-  console.log(state.myPhoto);
-
-
   return (
     <FlickrContext.Provider value={{
       savePhoto,

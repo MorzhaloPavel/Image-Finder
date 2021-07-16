@@ -17,7 +17,8 @@ export interface IPhoto {
 export interface IPicture {
   id: string,
   src: string,
-  title: string
+  title: string,
+  tags?: string
 }
 
 export interface IPic {
